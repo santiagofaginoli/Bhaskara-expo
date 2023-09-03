@@ -3,201 +3,235 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import { SunIcon } from "../public/icon/SunIcon";
+import { MoonIcon } from "../public/icon/MoonIcon";
+import Link from "next/link";
+import { Switch, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const Layout = ({ children }) => {
-  const [scrollY, setScrollY] = useState(0);
-  const handleScroll = () => {
-    setScrollY(window.scrollY);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const onClick = () => {
+    console.log("onClick");
+    document.documentElement.classList.toggle("dark")
+  }
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    console.log(isMenuOpen)
   };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  const scrollThreshold = window.innerHeight; // Altura de 100vh
-  const navbarOpacity = Math.min(1, scrollY / scrollThreshold);
-  const textColor = scrollY > scrollThreshold * 0.5 ? 'text-black' : 'text-white';
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
-    <div>
+    <div className="">
+      <Head>
+        <title>Iresm</title>
+        <link rel="icon" type="image/png" href="/img/logo.png"  ></link>
+        <meta
+          name="description"
+          content="Calculadora Bhaskara"
+        />
+        <meta name="author" content="DivGeeks" />
+        <meta name="robots" content="index" />
+        <meta lang="en" />
+        <meta
+          name="keywords"
+          content="desarrolo web, paginas web, web development, web page, nextJs, html, css, wonderful, increible,calculadora de bhaskara, calculadora, bhaskara, asombroso, incredible, amazing, empresa de desarrolo web, web development company, Divgeeks, divgeeks, divgeek, divgee, Divgeek, div,geeks,geek,Geek,Geeks,Div,Divgeks,Divgek"
+        />
+        <meta charset="utf-8" />
+      </Head>
       <nav
-        className="fixed top-0 left-0 w-full transition bg-white"
-        style={{
-          backgroundColor: `rgba(255, 255, 255, ${navbarOpacity})`,
-        }}
+        className="fixed top-0 left-0 z-30 bg-[#7b7b7b6c] w-full transition  "
       >
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between  p-4">
-          <div href="#" class="flex items-center">
-            <div class="relative hidden md:block ">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-
-                <span class="sr-only">Search icon</span>
-              </div>
-
-              <input
-                type="text"
-                id="search-navbar"
-                class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-transparent focus:ring-blue-500 focus:border-blue-500 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search..."
-              />
-            </div>
-          </div>
-
-          <div class="flex flex-col jus p-4 md:order-2  font-medium ">
-            <a href="https://flowbite.com/" class="flex items-center">
+        <div class=" px-10 flex flex-wrap items-center justify-between ">
+          <div class="flex flex-col justify-center p-4 md:order-1  font-medium ">
+            <a href="https://iresm.edu.ar" class="flex items-center">
               <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                class="h-8 mr-3"
+                src="img/LOGO.png"
+                class="h-11 mr-3"
                 alt="Flowbite Logo"
               />
-
               <span
-                className={`self-center text-2xl font-semibold whitespace-nowra ${textColor}`}
-              >
-                Paul51.shoes
+                className={`self-center text-2xl font-semibold text-white whitespace-nowra`}>
+                IRESM
               </span>
             </a>
           </div>
-
-          <div class="flex md:order-2">
-            <button
-              type="button"
-              data-collapse-toggle="navbar-search"
-              aria-controls="navbar-search"
-              aria-expanded="false"
-              class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
-            >
-              <svg
-                class="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
+          <div href="#" class="justify-center flex md:order-4 items-center">
+            <div class="relative hidden md:block  ">
+              <Switch
+                onChange={onClick}
+                defaultSelected
+                size="lg"
+                color="warning"
+                startContent={<SunIcon />}
+                endContent={<MoonIcon />}
               >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-
-              <span class="sr-only">Search</span>
-            </button>
-
-            <button
-              data-collapse-toggle="navbar-search"
-              type="button"
-              class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-              aria-controls="navbar-search"
-              aria-expanded="false"
-            >
-              <span class="sr-only">Open main menu</span>
-
-              <svg
-                class="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 17 14"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 1h15M1 7h15M1 13h15"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div
-            class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-            id="navbar-search"
-          >
-            <div class="relative mt-3 md:hidden">
-              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </div>
-
-              <input
-                type="text"
-                id="search-navbar"
-                class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search..."
-              />
+              </Switch>
             </div>
           </div>
-
-          <div className="items-center md:order-3 justify-between hidden w-full md:flex md:w-auto ">
+          <div class="flex flex-col justify-center p-4 md:hidden  font-medium ">
+            <Dropdown>
+              <DropdownTrigger>
+                <button
+                  className="border text-white rounded-full p-2"
+                >
+                  Open Menu
+                </button>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="Dynamic Actions" >
+                <DropdownItem
+                  key={"Inicio"}
+                >
+                  <Link href="#inicio">
+                    <h2>Inicio</h2>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key={"Chat"}
+                >
+                  <Link href="#chat">
+                    <h2>Chat</h2>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key={"Explicación"}
+                >
+                  <Link href="#Explicacion">
+                    <h2>Explicación</h2>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key={"Matematicos"}
+                >
+                  <Link href="#Matematicos">
+                    <h2>Matematicos</h2>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key={"Contacto"}
+                >
+                  <Link href="https://divgeeks-ccqalgxj0-divgeeks.vercel.app/contacto/contacto">
+                    <h2>Contacto</h2>
+                  </Link>
+                </DropdownItem>
+                <DropdownItem
+                  key={"Theme"}>
+                  <Switch
+                    onChange={onClick}
+                    defaultSelected
+                    size="lg"
+                    color="warning"
+                    startContent={<SunIcon />}
+                    endContent={<MoonIcon />}
+                  >
+                  </Switch>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+          <div className="items-center md:order-3 justify-center  hidden w-full md:flex md:w-auto ">
             <ul className="flex space-x-4">
               <li>
-                <a
-                  href="#"
-                  className={`${textColor} hover:text-green-600 transition duration-300`}
-                >
-                  Item 1
-                </a>
+                <Link href="#inicio">
+                  Inicio
+                </Link>
               </li>
-
               <li>
-                <a
-                  href="#"
-                  className={`${textColor} hover:text-green-600 transition duration-300`}
-                >
-                  Item 2
-                </a>
+                <Link href="#chat" chat>
+                  Chat
+                </Link>
               </li>
-
               <li>
-                <a
-                  href="#"
-                  className={`${textColor} hover:text-green-600 transition duration-300`}
-                >
-                  Item 3
-                </a>
+                <Link href="#Explicacion">
+                  Explicacion
+                </Link>
+              </li>
+              <li>
+                <Link href="#Matematicos">
+                  Matematicos
+                </Link>
+              </li>
+              <li>
+                <Link href="https://divgeeks-ccqalgxj0-divgeeks.vercel.app/contacto/contacto">
+                  Contacto
+                </Link>
               </li>
             </ul>
           </div>
         </div>
-      </nav>
-
+      </nav >
       {children}
-    </div>
+      <div className="w-full min-h-[400px] bg-[url('/img/fondoFooter.jpg')] bg-no-repeat ">
+        <div className="w-full grid grid-cols-12 min-h-[400px] bg-no-repeat py-10 bg-[rgba(241,248,255,0.193)]">
+          <div className="grid  col-span-12 ml-5">
+            <div className="flex justify-start">
+              <div className="grid col-span-12 ">
+                <div className="flex justify-center">
+                  <div>
+                    <Avatar
+                      src="/img/logo.png"
+                      css={{ h: "60px", w: "60px" }}
+                      id="avatarFooter"
+                      className="bg-transparent"
+                    />
+                  </div>
+                  <div>
+                    <div css={{ mb: "5px" }} className="font-bold text-white">
+                      <h2>DivGeeks</h2>
+                    </div>
+                    <div css={{ mt: "-25px", ml: "2px" }}>
+                      <h2 className=" text-[#1c1c1c] font-bold " >
+                        {" "}
+                        If you can imagine it, we can program it
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full grid sm:col-span-1 "> </div>
+          <div className="grid col-span-12 ">
+            <div className="flex  justify-start gap-1 ml-5">
+              <ul className="flex  gap-5">
+                <li>
+                  <Link target="_blank" href="https://www.instagram.com/divgeeks/">
+                    <h3 className="font-bold text-white">Instagram</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link target="_blank" href="http://wa.me/3541389764">
+                    <h3 className="font-bold text-white">Whatsapp</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link target="_blank" href="https://www.facebook.com/people/Div-Geeks/pfbid0Uww2po6mv4b4GyKsVnRCHgHgvWejM48qxqpTfEdfzk2S8feXEWSLrLELCV84mio5l/">
+                    <h3 className="font-bold text-white">Facebook</h3>
+                  </Link>
+                </li>
+                <li>
+                  <Link target="_blank" href="https://divgeeks-ccqalgxj0-divgeeks.vercel.app/contacto/contacto">
+                    <h3 className="font-bold text-white">Gmail</h3>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="grid col-span-12 ">
+            <div className="w-full flex justify-center">
+              <h3 className=" text-[#1c1c1c]  font-black">
+                © 2023 DivGeeks. Portafolio web developers.
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div >
   );
 };
 
