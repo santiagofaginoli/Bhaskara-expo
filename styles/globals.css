@@ -8,10 +8,7 @@ html {
     overflow-x:hidden; 
   }
 
-.text-foreground {
-    color: white;
-    background: #7b7b7b49;
-}
+
 /*------------------------------------------------Sweet Alert------------------------------------------------------*/
 .swal2-container.swal2-backdrop-show,
 .swal2-container.swal2-noanimation {
