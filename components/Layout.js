@@ -42,17 +42,17 @@ const Layout = ({ children }) => {
           name="keywords"
           content="desarrolo web, paginas web, web development, web page, nextJs, html, css, wonderful, increible,calculadora de bhaskara, calculadora, bhaskara, asombroso, incredible, amazing, empresa de desarrolo web, web development company, Divgeeks, divgeeks, divgeek, divgee, Divgeek, div,geeks,geek,Geek,Geeks,Div,Divgeks,Divgek"
         />
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
       </Head>
       <nav
         className="fixed top-0 left-0 z-30 bg-[#7b7b7b6c] w-full transition  "
       >
-        <div class=" px-10 flex flex-wrap items-center justify-between ">
-          <div class="flex flex-col justify-center p-4 md:order-1  font-medium ">
-            <a href="https://iresm.edu.ar" class="flex items-center">
+        <div className=" px-10 flex flex-wrap items-center justify-between ">
+          <div className="flex flex-col justify-center p-4 md:order-1  font-medium ">
+            <a href="https://iresm.edu.ar" className="flex items-center">
               <img
                 src="img/LOGO.png"
-                class="h-11 mr-3"
+                className="h-11 mr-3"
                 alt="Flowbite Logo"
               />
               <span
@@ -61,8 +61,8 @@ const Layout = ({ children }) => {
               </span>
             </a>
           </div>
-          <div href="#" class="justify-center flex md:order-4 items-center">
-            <div class="relative hidden md:block  ">
+          <div href="#" className="justify-center flex md:order-4 items-center">
+            <div className="relative hidden md:block  ">
               <Switch
                 onChange={onClick}
                 defaultSelected
@@ -74,7 +74,7 @@ const Layout = ({ children }) => {
               </Switch>
             </div>
           </div>
-          <div class="flex flex-col justify-center p-4 md:hidden  font-medium ">
+          <div className="flex flex-col justify-center p-4 md:hidden  font-medium ">
             <Dropdown>
               <DropdownTrigger>
                 <button
@@ -88,35 +88,35 @@ const Layout = ({ children }) => {
                   key={"Inicio"}
                 >
                   <Link href="#inicio">
-                    <h2>Inicio</h2>
+                    <h2 className="font-bold ">Inicio</h2>
                   </Link>
                 </DropdownItem>
                 <DropdownItem
                   key={"Chat"}
                 >
                   <Link href="#chat">
-                    <h2>Chat</h2>
+                    <h2 className="font-bold ">Chat</h2>
                   </Link>
                 </DropdownItem>
                 <DropdownItem
                   key={"Explicación"}
                 >
                   <Link href="#Explicacion">
-                    <h2>Explicación</h2>
+                    <h2 className="font-bold ">Explicación</h2>
                   </Link>
                 </DropdownItem>
                 <DropdownItem
                   key={"Matematicos"}
                 >
                   <Link href="#Matematicos">
-                    <h2>Matematicos</h2>
+                    <h2 className="font-bold ">Matematicos</h2>
                   </Link>
                 </DropdownItem>
                 <DropdownItem
                   key={"Contacto"}
                 >
                   <Link href="https://divgeeks-ccqalgxj0-divgeeks.vercel.app/contacto/contacto">
-                    <h2>Contacto</h2>
+                    <h2 className="font-bold ">Contacto</h2>
                   </Link>
                 </DropdownItem>
                 <DropdownItem
@@ -138,27 +138,27 @@ const Layout = ({ children }) => {
             <ul className="flex space-x-4">
               <li>
                 <Link href="#inicio">
-                  Inicio
+                  <h2 className="font-bold ">Inicio</h2>
                 </Link>
               </li>
               <li>
-                <Link href="#chat" chat>
-                  Chat
+                <Link href="#chat" >
+                  <h2 className="font-bold ">Chat</h2>
                 </Link>
               </li>
               <li>
                 <Link href="#Explicacion">
-                  Explicacion
+                  <h2 className="font-bold ">Explicacion</h2>
                 </Link>
               </li>
               <li>
                 <Link href="#Matematicos">
-                  Matematicos
+                  <h2 className="font-bold ">Matematicos</h2>
                 </Link>
               </li>
               <li>
                 <Link href="https://divgeeks-ccqalgxj0-divgeeks.vercel.app/contacto/contacto">
-                  Contacto
+                  <h2 className="font-bold ">Contacto</h2>
                 </Link>
               </li>
             </ul>
@@ -197,7 +197,7 @@ const Layout = ({ children }) => {
           </div>
           <div className="w-full grid sm:col-span-1 "> </div>
           <div className="grid col-span-12 ">
-            <div className="flex  justify-start gap-1 ml-5">
+            <div className="flex  justify-center gap-1">
               <ul className="flex  gap-5">
                 <li>
                   <Link target="_blank" href="https://www.instagram.com/divgeeks/">
@@ -223,7 +223,7 @@ const Layout = ({ children }) => {
             </div>
           </div>
           <div className="grid col-span-12 ">
-            <div className="w-full flex justify-center">
+            <div className="w-full flex justify-start  ml-5">
               <h3 className=" text-[#1c1c1c]  font-black">
                 © 2023 DivGeeks. Portafolio web developers.
               </h3>
