@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useState } from "react";
-import { useChat } from "ai/react";
+import { useChat } from 'ai/react';
 import { Divider, Input, Accordion, AccordionItem, } from "@nextui-org/react";
 const inter = Inter({ subsets: ["latin"] });
 import Swal from "sweetalert2";
@@ -10,9 +10,11 @@ import Layout from "/components/Layout";
 import SwiperExplicacion from "../components/SwiperExplicacion";
 
 export default function Home() {
-  const { messages, input, handleInputChange, handleSubmit2, isLoading } =
-    useChat();
+  const { messages, input, handleInputChange, handleSubmit,isLoading } = useChat({
+    api: '/api/chat'
+  })
   console.log(messages);
+  console.log(input);
   const [inputs, setInputs] = useState({
     A: "",
     B: "",
@@ -41,7 +43,7 @@ export default function Home() {
     console.log(e.target.value, e.target.name);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit2 = () => {
     if (!stateA || !stateB || !stateC) {
       Swal.fire({
         icon: "warning",
@@ -98,6 +100,7 @@ export default function Home() {
 
   return (
     <Layout >
+       
       {/*------------------------------Section de Calculadora de Bhaskara--------------------------------*/}
       <section id="inicio" className="flex justify-center items-center w-screen h-screen bg-[url('/img/fondo.avif')]  ">
         <div className=" grid grid-cols-1 gap-y-4 p-5 sm:w-5/6 md:w-4/6 bg-gray-700">
@@ -110,7 +113,7 @@ export default function Home() {
           <div className="w-full md:flex  sm:grid sm:grid-cols-1 md:justify-center md:gap-10">
             <div className=" sm:w-full mb-5 md:w-auto">
               <input
-                Placeholder="Ingrese el valor de A"
+                placeholder="Ingrese el valor de A"
                 type="text"
                 variant="bordered"
                 name="A"
@@ -124,7 +127,7 @@ export default function Home() {
             </div>
             <div className=" sm:w-full mb-5 md:w-auto">
               <input
-                Placeholder="Ingrese el valor de B"
+                placeholder="Ingrese el valor de B"
                 type="text"
                 variant="bordered"
                 name="B"
@@ -138,7 +141,7 @@ export default function Home() {
             </div>
             <div className=" sm:w-full mb-5 md:w-auto">
               <input
-                Placeholder="Ingrese el valor de C"
+                placeholder="Ingrese el valor de C"
                 type="text"
                 className="bg-transparent w-full h-full align-middle p-1  border border-gray-800 rounded-3xl focus:border-none hover:border-blue-500 "
                 name="C"
@@ -153,7 +156,7 @@ export default function Home() {
           <div className="grid grid-cols-1">
             <div className=" flex justify-center ">
               <div className="w-full flex justify-center">
-                <button className="bg-[#20613f] rounded-3xl  w-auto p-2 text-white" onClick={() => handleSubmit()}>
+                <button className="bg-[#20613f] rounded-3xl  w-auto p-2 text-white" onClick={() => handleSubmit2()}>
                   Mandar
                 </button>
               </div>
@@ -197,12 +200,29 @@ export default function Home() {
         </div>
       </section>
       {/*------------------------------Section de Chat--------------------------------*/}
+      <div>
+      <ul>
+        {messages.map((m, index) => (
+          <li key={index}>
+            {m.role === 'user' ? 'User: ' : 'AI: '}
+            {m.content}
+          </li>
+        ))}
+      </ul>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Say something...
+          <input value={input} onChange={handleInputChange} />
+        </label>
+        <button type="submit">Send</button>
+      </form>
+    </div>
       <section id="chat" className="grid grid-cols-1 mt-20 ">
         <div className="w-full flex justify-center mb-20 ">
           <h2 className="text-6xl text-center">Chat Inteligente</h2>
         </div>
         <div className="w-full flex justify-center px-5 mb-5 ">
-          <form onSubmit={handleSubmit2} className="max-w-xl p-2 rounded-[35px]  bg-[#20613f] w-full">
+          <form onSubmit={handleSubmit} className="max-w-xl p-2 rounded-[35px]  bg-[#20613f] w-full">
             <div className="text-white   overflow-y-auto">
               {messages.map((m) => (
                 <div
@@ -227,6 +247,7 @@ export default function Home() {
                 Escribe la pregunta
               </label>
               <button
+              type="submit"
                 className="bg-[#374151] text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50"
                 disabled={isLoading || !input}
               >
@@ -234,10 +255,9 @@ export default function Home() {
               </button>
             </div>
             <textarea
-              rows={4}
               value={input}
               onChange={handleInputChange}
-              className="text-black bg-[#374151] px-3 py-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="text-white  bg-[#374151] px-3 py-2 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
               placeholder="Escribi la pregunta"
               autoFocus
             />
